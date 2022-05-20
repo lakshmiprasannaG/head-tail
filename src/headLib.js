@@ -1,5 +1,3 @@
-console.log('usage: head [-n lines | -c bytes] [file ...]');
-
 const NEWLINE = '\n';
 
 const splitLines = (content) => content.split(NEWLINE);

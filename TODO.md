@@ -1,12 +1,14 @@
 **TODO**
 
-- [ ] Take file from command line.
+- [ ] Create main in 'headLib.js'.
 - [ ] Implement '-n' option.
 - [ ] Clear the doubt, after doing head, do last line has '\n' as last character?
 - [ ] Check the functionality of head once.
 
 **Done**
 
+- [x] Write main.
+- [x] Take file from command line.
 - [ ] ~~Create a data file.~~
 - [x] Extract split and join into different functions.
 - [x] Take a constant variable for '\n'.
