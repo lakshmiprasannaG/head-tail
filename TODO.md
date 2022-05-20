@@ -6,6 +6,7 @@
 
 **Done**
 
+- [x] Take options as object.
 - [x] Implement '-n' option.
 - [x] Create main in 'headLib.js'.
 - [x] Write main.
