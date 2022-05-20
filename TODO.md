@@ -1,13 +1,17 @@
 **TODO**
 
-- [ ] Implement '-c' option.
-- [ ] After doing 'head', do last line has '\n' as last character?
+- [ ] Write validations for options.
+  - [ ] Count should be positive.
+  - [ ] Bytes should be positive.
+  - [ ] Either '-n' or '-c', only single option can be given.
+- [ ] After doing 'head', does last line has '\n' as last character?
 - [ ] Check the functionality of head once.
 
 **Done**
 
-- [x] Take options as object.
+- [x] Implement '-c' option.
 - [x] Implement '-n' option.
+- [x] Take options as object.
 - [x] Create main in 'headLib.js'.
 - [x] Write main.
 - [x] Take file from command line.

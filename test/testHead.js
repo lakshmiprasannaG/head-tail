@@ -11,26 +11,37 @@ describe('head', () => {
     const content = 'hey\nhow\nare\nyou\ndoing';
     assert.strictEqual(head('hello\nbye', {count: 2}), 'hello\nbye');
     assert.strictEqual(head(content, {count: 10}), content);
-    
   });
-
+  
   it('Should first 10 lines when count is 10', () => {
     const content = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet\nu';
     const expectation = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet';
-
+    
     assert.strictEqual(head(content, {count: 10}), expectation);
   });
-
+  
   it('Should give first line only, when count is 1', () => {
     assert.strictEqual(head('hello\nbye', {count: 1}), 'hello');
   });
-
+  
   it('Should give first two lines only, when count is 2', () => {
     assert.strictEqual(head('hello\nbye\ngoodBye', {count: 2}), 'hello\nbye');
   });
   
   it('Should give all lines when count is greater than number of lines', () => {
     assert.strictEqual(head('hello\nbye\ngoodBye', {count: 5}), 'hello\nbye\ngoodBye');
+  });
+  
+  it('Should display first byte', () => {
+    assert.strictEqual(head('hello', {bytes: 1}), 'h');
+  });
+  
+  it('Should display first 5 bytes', () => {
+    assert.strictEqual(head('hello', {bytes: 5}), 'hello');
+  });
+ 
+  it('Should display all bytes, if there are no enought bytes in content', () => {
+    assert.strictEqual(head('hello', {bytes: 10}), 'hello');
   });
 });
 

@@ -1,11 +1,11 @@
-const NEWLINE = '\n';
+const splitLines = (content, delimiter) => content.split(delimiter);
+const joinLines = (lines, delimiter) => lines.join(delimiter);
 
-const splitLines = (content) => content.split(NEWLINE);
-const joinLines = (lines) => lines.join(NEWLINE);
-
-const head = (content, {count}) => {
-  const lines = splitLines(content);
-  return joinLines(lines.slice(0, count));
+const head = (content, { count, bytes }) => {
+  const delimiter = count ? '\n' : '';
+  const option = count ? count : bytes;
+  const lines = splitLines(content, delimiter);
+  return joinLines(lines.slice(0, option), delimiter);
 };
 
 const headMain = function (readFile, filePath) {
