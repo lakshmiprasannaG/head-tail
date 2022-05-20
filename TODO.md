@@ -1,5 +1,6 @@
 **TODO**
 
+- [ ] Take file from command line.
 - [ ] Implement '-n' option.
 - [ ] Clear the doubt, after doing head, do last line has '\n' as last character?
 - [ ] Check the functionality of head once.
