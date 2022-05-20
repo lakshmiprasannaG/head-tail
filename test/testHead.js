@@ -8,7 +8,16 @@ describe('head', () => {
   });
 
   it('Should display whole content when content is less than or equal to 10 lines', () => {
+    const content = 'hey\nhow\nare\nyou\ndoing';
     assert.strictEqual(head('hello\nbye'), 'hello\nbye');
-    assert.strictEqual(head('hey\nhow\nare\nyou\ndoing'), 'hey\nhow\nare\nyou\ndoing');
+    assert.strictEqual(head(content), content);
+    
+  });
+
+  it('Should give first 10 lines of the content', () => {
+    const content = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet\nu';
+    const expectation = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet';
+
+    assert.strictEqual(head(content), expectation);
   });
 });

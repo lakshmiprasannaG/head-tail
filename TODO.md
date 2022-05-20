@@ -1,10 +1,14 @@
 **TODO**
-
-- [ ] Work on content, don't consider file.
-- [ ] Implement 'head' that gives first 10 lines of the content.
+- [ ] Extract split and join into different functions.
+- [ ] Take a constant variable for '\n'.
+- [ ] Clear the doubt, after doing head, do last line has '\n' as last character?
+- [ ] Create a data file.
+- [ ] Check the functionality of head once.
 
 **Done**
 
+- [x] Work on content, don't consider file.
+- [x] Implement 'head' that gives first 10 lines of the content. (default behaviour of head).
 - [x] If the content is less than or equal to 10 lines, should display whole content.
 - [x] Create 'src' and 'test' directories.
 - [ ] ~~Copy eslint.json.~~
