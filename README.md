@@ -1,6 +1,6 @@
-head [-n count][-c bytes] [--help] file
+## head [-n count][-c bytes] [--help] file
 
-head file
+```head file
   Displays the first 10 lines of the specified file.
 
 head -n count file
@@ -11,3 +11,4 @@ head -c bytes file
 
 head --help
   Displayes the usage of the 'head'.
+```
