@@ -3,7 +3,16 @@ const { head } = require('./src/headLib.js');
 
 const main = content => head(content);
 
-const fileName = process.argv[2];
-console.log(main(fs.readFileSync(fileName, 'utf8')));
+const readFile = function (fileName) {
+  try {
+    return fs.readFileSync(fileName, 'utf8');
+  } catch (error) {
+    throw 'usage: head [-n lines | -c bytes] [file ...]';
+  }
+};
 
-console.log('usage: head [-n lines | -c bytes] [file ...]');
+try {
+  console.log(main(readFile(process.argv[2])));
+} catch (error) {
+  console.log(error);
+}
