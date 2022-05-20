@@ -7,12 +7,10 @@ const readFile = function (fileName) {
   try {
     return fs.readFileSync(fileName, 'utf8');
   } catch (error) {
-    throw 'usage: head [-n lines | -c bytes] [file ...]';
+    return 'usage: head [-n lines | -c bytes] [file ...]';
   }
 };
 
-try {
-  console.log(main(readFile(process.argv[2])));
-} catch (error) {
-  console.log(error);
-}
+const fileContent = readFile(process.argv[2]);
+
+console.log(fileContent ? main(fileContent) : fileContent);
