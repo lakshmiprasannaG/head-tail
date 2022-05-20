@@ -1,11 +1,12 @@
 **TODO**
 
-- [ ] Implement '-n' option.
+- [ ] Implement '-c' option.
 - [ ] After doing 'head', do last line has '\n' as last character?
 - [ ] Check the functionality of head once.
 
 **Done**
 
+- [x] Implement '-n' option.
 - [x] Create main in 'headLib.js'.
 - [x] Write main.
 - [x] Take file from command line.
