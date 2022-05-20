@@ -1,12 +1,14 @@
 **TODO**
-- [ ] Extract split and join into different functions.
-- [ ] Take a constant variable for '\n'.
+
+- [ ] Implement '-n' option.
 - [ ] Clear the doubt, after doing head, do last line has '\n' as last character?
-- [ ] Create a data file.
 - [ ] Check the functionality of head once.
 
 **Done**
 
+- [ ] ~~Create a data file.~~
+- [x] Extract split and join into different functions.
+- [x] Take a constant variable for '\n'.
 - [x] Work on content, don't consider file.
 - [x] Implement 'head' that gives first 10 lines of the content. (default behaviour of head).
 - [x] If the content is less than or equal to 10 lines, should display whole content.
