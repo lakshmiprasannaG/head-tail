@@ -8,4 +8,13 @@ const head = content => {
   return joinLines(lines.slice(0, 10));
 };
 
+const headMain = function (readFile, filePath) {
+  try {
+    return head(readFile(filePath, 'utf8'));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.head = head;
+exports.headMain = headMain;

@@ -1,9 +1,11 @@
 const fs = require('fs');
-const { head } = require('./src/headLib.js');
+const { headMain } = require('./src/headLib.js');
 
-const main = content => head(content);
+const HEAD_USAGE = 'usage: head [-n lines | -c bytes] [file ...]';
 
-const headUsage = 'usage: head [-n lines | -c bytes] [file ...]';
+const main = function () {
+  const filePath = process.argv[2];
+  return filePath ? headMain(fs.readFileSync, filePath) : HEAD_USAGE;
+};
 
-const filePath = process.argv[2];
-console.log(filePath ? main(fs.readFileSync(filePath, 'utf8')) : headUsage);
+console.log(main());

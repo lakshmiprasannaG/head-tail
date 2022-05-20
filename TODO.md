@@ -1,12 +1,12 @@
 **TODO**
 
-- [ ] Create main in 'headLib.js'.
 - [ ] Implement '-n' option.
-- [ ] Clear the doubt, after doing head, do last line has '\n' as last character?
+- [ ] After doing 'head', do last line has '\n' as last character?
 - [ ] Check the functionality of head once.
 
 **Done**
 
+- [x] Create main in 'headLib.js'.
 - [x] Write main.
 - [x] Take file from command line.
 - [ ] ~~Create a data file.~~

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head } = require('../src/headLib.js');
+const { head, headMain } = require('../src/headLib.js');
 
 describe('head', () => {
   it('Should display the content for single line content', () => {
@@ -19,5 +19,19 @@ describe('head', () => {
     const expectation = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet';
 
     assert.strictEqual(head(content), expectation);
+  });
+});
+
+const mockReadfileSync = function (expectedFilePath, content) {
+  return function (filePath) {
+    assert.strictEqual(filePath, expectedFilePath);
+    return content;
+  };
+};
+
+describe.only('headMain', () => {
+  it('Should give first 10 lines of given file', () => {
+    const mockedReadFileSync = mockReadfileSync('./a.txt', 'hello');    
+    assert.strictEqual(headMain(mockedReadFileSync, './a.txt'), 'hello');
   });
 });
