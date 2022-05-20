@@ -1,7 +1,8 @@
 - [ ] Create 'src' and 'test' directories.
 - [ ] Copy eslint.json.
-- [ ] Check whether mocha is working fine.
+- [ ] Check whether mocha is present.
 - [ ] Create 'testHead.js'.
 - [ ] Write a test case.
+- [ ] Implement 'head file'.
 - [ ] Work on content, don't consider file.
 - [ ] After passing the first test case, create 'head.js' and move the logic there.
