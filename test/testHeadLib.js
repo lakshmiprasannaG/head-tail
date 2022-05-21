@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, headMain } = require('../src/headLib.js');
+const { head } = require('../src/headLib.js');
 
 describe('head', () => {
   it('Should display first line when count and byte are not specified', () => {
@@ -53,24 +53,5 @@ describe('head', () => {
  
   it('Should display all bytes, if there are no enought bytes in content', () => {
     assert.strictEqual(head('hello', {count: 10, delimiter: ''}), 'hello');
-  });
-});
-
-const mockReadfileSync = function (expectedFilePath, content) {
-  return function (filePath) {
-    assert.deepStrictEqual(filePath, expectedFilePath);
-    return content;
-  };
-};
-
-describe('headMain', () => {
-  it('Should give first line of given file, as count is 1', () => {
-    const mockedReadFileSync = mockReadfileSync('./a.txt', 'hello');    
-    assert.strictEqual(headMain(mockedReadFileSync, ['-n', '1', './a.txt']), 'hello');
-  });
-  
-  it('Should give first line of given files, as count is 1', () => {
-    const mockedReadFileSync = mockReadfileSync('./a.txt', 'hello');    
-    assert.strictEqual(headMain(mockedReadFileSync, ['-n', '1', './a.txt', './a.txt']), 'hello\n\n\nhello');
   });
 });

@@ -1,6 +1,5 @@
 **TODO**
 
-- [ ] Move 'headMain' tests to different file.
 - [ ] Refactor 'headMain' function in headLib.js.
 - [ ] Consider rich structure for 'head'.
 - [ ] Refactor head function in 'headLib.js'.
@@ -13,6 +12,8 @@
 
 **Done**
 
+- [x] Format the output when multiple files are passed as input.
+- [x] Move 'headMain' tests to different file.
 - [x] Wire parseArgs to headLib.js
   - [x] Modify the contract of head.
 - [X] Implement parseArgs.
@@ -40,12 +41,3 @@
 - [x] Write a test case.
 - [x] Implement 'head file'.
 - [x] After passing the first test case, create 'head.js' and move the logic there.
-
-**Doubts**
-
-- [ ] Do I really need to send 2 options at once? Anyway only 1 option can be taken
-- [ ] Why to select delimiter based on options? Why not send it directly based on option?
-  - [ ] But where to have option check to select delimiter? 
-  - [ ] In the parsing function or in headMain?
-  - [ ] Writing parse function may give the whole clarity.
-

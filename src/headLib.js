@@ -1,22 +1,35 @@
 const { parseArgs } = require('./parseArgs');
 
-const splitLines = (content, delimiter) => content.split(delimiter);
-const joinLines = (lines, delimiter) => lines.join(delimiter);
+const splitData = (content, delimiter) => content.split(delimiter);
+const joinData = (lines, delimiter) => lines.join(delimiter);
 
 const head = (content, { count, delimiter }) => {
-  const lines = splitLines(content, delimiter);
-  return joinLines(lines.slice(0, count), delimiter);
+  const lines = splitData(content, delimiter);
+  return joinData(lines.slice(0, count), delimiter);
+};
+
+const formatFileContent = function (files, filesContent) {
+  const formattedData = [];
+  if (files.length === 1) {
+    return filesContent;
+  }
+  for (let index = 0; index < files.length; index++) {
+    const fileNameFormat = `==> ${files[index]} <==`;
+    formattedData.push(`${fileNameFormat}\n${filesContent[index]}`);
+  }
+  return formattedData;
 };
 
 const headMain = function (readFile, args) {
   try {
     const { files, count, delimiter } = parseArgs(args);
     const requiredText = [];
+    
     for (let index = 0; index < files.length; index++) {
       const content = readFile(files[index], 'utf8');
       requiredText.push(head(content, { count, delimiter }));
     }
-    return requiredText.join('\n\n\n');
+    return joinData(formatFileContent(files, requiredText), '\n\n');
   } catch (error) {
     console.log('Unable to read file');
   }
