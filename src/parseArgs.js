@@ -1,10 +1,10 @@
 const parseArgs = function (args) {
-  let files = args.slice(0);
   let count = 10;
+  let files = args.slice(0);
   const delimiter = args[0] === '-c' ? '' : '\n';
-  if (args.length > 1) {
-    files = args.slice(2, args.length);
+  if (args[0].startsWith('-')) {
     count = +args[1];
+    files = args.slice(2);
   }
   return { files, count, delimiter };
 };

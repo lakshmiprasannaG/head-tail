@@ -1,8 +1,7 @@
 **TODO**
 
-- [ ] Implement parseArgs.
-  - [x] When only one option with any number of files is passed.
-  - [ ] Files can be [^-*0-9]
+- [ ] Wire parseArgs to headLib.js
+  - [ ] Modify the contract of head.
 - [ ] Consider rich structure for 'head'.
 - [ ] Refactor head function in 'headLib.js'.
 - [ ] Write validations for options.
@@ -14,6 +13,11 @@
 
 **Done**
 
+- [X] Implement parseArgs.
+  - [x] When only one file is passed.
+  - [x] When only one option with any number of files is passed.
+  - [X] When no option is provided with multiple files.
+  - [ ] ~~Files can be [^-*0-9]~~
 - [x] Consider 'head', when no options are passed.
 - [x] Implement '-c' option.
 - [x] Implement '-n' option.

@@ -1,7 +1,7 @@
 const assert = require('assert');
 const { parseArgs } = require('../src/parseArgs');
 
-describe.only('parseArgs', () => {
+describe('parseArgs', () => {
   it('Should parse the fileName', () => {
     assert.deepStrictEqual(parseArgs(['./a.txt']), { files: ['./a.txt'], count: 10, delimiter: '\n' });
   });
@@ -36,5 +36,9 @@ describe.only('parseArgs', () => {
       count: 2,
       delimiter: ''
     });
+  });
+  
+  it('Should parse multiple files', () => {
+    assert.deepStrictEqual(parseArgs(['./a.txt', './b.txt']), { files: ['./a.txt', './b.txt'], count: 10, delimiter: '\n' });
   });
 });
