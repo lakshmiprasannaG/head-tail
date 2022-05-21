@@ -1,5 +1,8 @@
 **TODO**
 
+- [ ] Implement parseArgs.
+  - [x] When only one option with any number of files is passed.
+  - [ ] Files can be [^-*0-9]
 - [ ] Consider rich structure for 'head'.
 - [ ] Refactor head function in 'headLib.js'.
 - [ ] Write validations for options.
@@ -31,3 +34,12 @@
 - [x] Write a test case.
 - [x] Implement 'head file'.
 - [x] After passing the first test case, create 'head.js' and move the logic there.
+
+**Doubts**
+
+- [ ] Do I really need to send 2 options at once? Anyway only 1 option can be taken
+- [ ] Why to select delimiter based on options? Why not send it directly based on option?
+  - [ ] But where to have option check to select delimiter? 
+  - [ ] In the parsing function or in headMain?
+  - [ ] Writing parse function may give the whole clarity.
+

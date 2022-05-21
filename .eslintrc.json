@@ -107,7 +107,7 @@
     },
     {
       "files": [
-        "head*.js"
+        "head*.js", "parseArgs.js"
       ],
       "rules": {
         "no-console": "off",
