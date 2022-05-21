@@ -1,20 +1,24 @@
+const { parseArgs } = require('./parseArgs');
+
 const splitLines = (content, delimiter) => content.split(delimiter);
 const joinLines = (lines, delimiter) => lines.join(delimiter);
 
-const getCount = count => count ? count : 10;
-
-const head = (content, { count, bytes }) => {
-  const delimiter = bytes ? '' : '\n';
-  const option = bytes ? bytes : getCount(count);
+const head = (content, { count, delimiter }) => {
   const lines = splitLines(content, delimiter);
-  return joinLines(lines.slice(0, option), delimiter);
+  return joinLines(lines.slice(0, count), delimiter);
 };
 
-const headMain = function (readFile, filePath) {
+const headMain = function (readFile, args) {
   try {
-    return head(readFile(filePath, 'utf8'), {});
+    const { files, count, delimiter } = parseArgs(args);
+    const requiredText = [];
+    for (let index = 0; index < files.length; index++) {
+      const content = readFile(files[index], 'utf8');
+      requiredText.push(head(content, { count, delimiter }));
+    }
+    return requiredText.join('\n\n\n');
   } catch (error) {
-    console.log(error);
+    console.log('Unable to read file');
   }
 };
 

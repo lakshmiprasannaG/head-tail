@@ -1,7 +1,7 @@
 **TODO**
 
-- [ ] Wire parseArgs to headLib.js
-  - [ ] Modify the contract of head.
+- [ ] Move 'headMain' tests to different file.
+- [ ] Refactor 'headMain' function in headLib.js.
 - [ ] Consider rich structure for 'head'.
 - [ ] Refactor head function in 'headLib.js'.
 - [ ] Write validations for options.
@@ -13,6 +13,8 @@
 
 **Done**
 
+- [x] Wire parseArgs to headLib.js
+  - [x] Modify the contract of head.
 - [X] Implement parseArgs.
   - [x] When only one file is passed.
   - [x] When only one option with any number of files is passed.
