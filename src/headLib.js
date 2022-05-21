@@ -22,8 +22,9 @@ const formatFileContent = function (files, filesContent) {
 
 const headMain = function (readFile, args) {
   try {
-    const { files, count, delimiter } = parseArgs(args);
+    const { files, count, option } = parseArgs(args);
     const requiredText = [];
+    const delimiter = option === '-c' ? '' : '\n';
     
     for (let index = 0; index < files.length; index++) {
       const content = readFile(files[index], 'utf8');
