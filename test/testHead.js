@@ -2,6 +2,17 @@ const assert = require('assert');
 const { head, headMain } = require('../src/headLib.js');
 
 describe('head', () => {
+  it('Should display first line when count and byte are not specified', () => {
+    assert.strictEqual(head('hello', {}), 'hello');
+    assert.strictEqual(head('bye', {}), 'bye');
+  });
+
+  it('Should return first 10 lines when count and byte are not specified', () => {
+    const content = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet\nu';
+    const expectation = 'hey\nhow\nare\nyou\ndoing?\nI\nwould\nlike\nto\nmeet';
+    assert.strictEqual(head(content, {}), expectation);
+  });
+
   it('Should display first line when count is 1', () => {
     assert.strictEqual(head('hello', {count: 1}), 'hello');
     assert.strictEqual(head('bye', {count: 1}), 'bye');

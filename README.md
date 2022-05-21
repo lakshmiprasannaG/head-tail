@@ -1,4 +1,4 @@
-## head [-n count][-c bytes] file
+## head [-n count | -c bytes] file
 
 ```head file
   Displays the first 10 lines of the specified file.

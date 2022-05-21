@@ -1,5 +1,7 @@
 **TODO**
 
+- [ ] Consider rich structure for 'head'.
+- [ ] Refactor head function in 'headLib.js'.
 - [ ] Write validations for options.
   - [ ] Count should be positive.
   - [ ] Bytes should be positive.
@@ -9,6 +11,7 @@
 
 **Done**
 
+- [x] Consider 'head', when no options are passed.
 - [x] Implement '-c' option.
 - [x] Implement '-n' option.
 - [x] Take options as object.
