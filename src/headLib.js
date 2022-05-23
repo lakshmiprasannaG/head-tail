@@ -21,19 +21,20 @@ const head = (content, { count, option }) => {
   return optionFnPairs[option];
 };
 
-const formatFileContent = function (files, filesContent) {
-  const formattedData = [];
+const formatFileContent = function (fileAndContents) {
+  const files = Object.keys(fileAndContents);
+  
   if (files.length === 1) {
-    return filesContent;
+    return [fileAndContents[files[0]]];
   }
-  for (let index = 0; index < files.length; index++) {
-    const fileNameFormat = `==> ${files[index]} <==`;
-    formattedData.push(`${fileNameFormat}\n${filesContent[index]}`);
-  }
-  return formattedData;
+
+  return files.map((file) => {
+    const fileNameFormat = `==> ${file} <==`;
+    return `${fileNameFormat}\n${fileAndContents[file]}`;
+  });
 };
 
-const validateInput = function ({ files, count, option }) {
+const assertValidInput = function ({ files, count, option }) {
   if (option !== '-n' && option !== '-c') {
     const errorMessage = {
       message: `Invalid option -- ${option}`
@@ -58,13 +59,15 @@ const validateInput = function ({ files, count, option }) {
 const headMain = function (readFile, args) {
   try {
     const { files, count, option } = parseArgs(args);
-    validateInput({ files, count, option });
+    assertValidInput({ files, count, option });
 
-    const fileContents = files.map((file) => {
-      return head(readFile(file, 'utf8'), { count, option });
+    const fileAndContents = {};
+    files.map((file) => {
+      fileAndContents[file] = head(readFile(file, 'utf8'), { count, option });
+      return fileAndContents;
     });
 
-    return joinData(formatFileContent(files, fileContents), '\n\n');
+    return joinData(formatFileContent(fileAndContents), '\n\n');
   } catch (error) {
     return error;
   }
@@ -72,4 +75,4 @@ const headMain = function (readFile, args) {
 
 exports.head = head;
 exports.headMain = headMain;
-exports.validateInput = validateInput;
+exports.validateInput = assertValidInput;

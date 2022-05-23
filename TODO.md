@@ -1,5 +1,6 @@
 **TODO**
 
+- [ ] Modify the input data structure of formatFileContent- from objects to array of objects.
 - [ ] Refactor parseArgs.
 - [ ] Refactor 'headMain' function in headLib.js.
 - [ ] Consider rich structure for 'head'.
@@ -13,6 +14,7 @@
 
 **Done**
 
+- [x] Modify the input data structure of formatFileContent- from arrays to objects.
 - [x] Give the responsibility of decision making to head, about which data to send back based on option.
 - [x] Test validateInput.
 - [x] Add few cases in parseArgs where
