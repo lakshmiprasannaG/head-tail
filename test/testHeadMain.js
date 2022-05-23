@@ -9,6 +9,7 @@ const mockReadfileSync = function (expectedFiles, content) {
     return content;
   };
 };
+
 describe('headMain', () => {
   it('Should give first line of given file, as count is 1', () => {
     const mockedReadFileSync = mockReadfileSync(['./a.txt'], 'hello');

@@ -111,7 +111,9 @@
       ],
       "rules": {
         "no-console": "off",
-        "no-magic-numbers": "off"
+        "no-magic-numbers": "off",
+        "complexity": "off",
+        "max-statements": "off"
       }
     }
   ]

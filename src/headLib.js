@@ -32,7 +32,7 @@ const headMain = function (readFile, args) {
     }
     return joinData(formatFileContent(files, requiredText), '\n\n');
   } catch (error) {
-    console.log('Unable to read file');
+    return error;
   }
 };
 
