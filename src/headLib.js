@@ -22,37 +22,43 @@ const head = (content, { count, option }) => {
 };
 
 const formatFileContent = function (fileAndContents) {
-  const files = Object.keys(fileAndContents);
-  
-  if (files.length === 1) {
-    return [fileAndContents[files[0]]];
+  if (fileAndContents.length === 1) {
+    return [fileAndContents[0].content];
   }
-
-  return files.map((file) => {
-    const fileNameFormat = `==> ${file} <==`;
-    return `${fileNameFormat}\n${fileAndContents[file]}`;
+  return fileAndContents.map((file) => {
+    const fileNameFormat = `==> ${file.name} <==`;
+    return `${fileNameFormat}\n${file.content}`;
   });
+};
+
+const invalidOptionError = (option) => {
+  return {
+    message: `Invalid option -- ${option}`,
+  };
+};
+
+const invalidCountError = (count) => {
+  return {
+    message: `Illegal count -- ${count}`
+  };
+};
+
+const invalidFileError = () => { 
+  return {
+    message: 'No file found'
+  };
 };
 
 const assertValidInput = function ({ files, count, option }) {
   if (option !== '-n' && option !== '-c') {
-    const errorMessage = {
-      message: `Invalid option -- ${option}`
-    };
-    throw errorMessage;
+    throw invalidOptionError(option);
   }
   if (count < 1 || isNaN(count)) {
-    const errorMessage = {
-      message: `Illegal count -- ${count}`
-    };
-    throw errorMessage;
+    throw invalidCountError(count);
   }
   
   if (files.length === 0) {
-    const errorMessage = {
-      message: 'No file found'
-    };
-    throw errorMessage;
+    throw invalidFileError();
   }
 };
 
@@ -61,15 +67,14 @@ const headMain = function (readFile, args) {
     const { files, count, option } = parseArgs(args);
     assertValidInput({ files, count, option });
 
-    const fileAndContents = {};
-    files.map((file) => {
-      fileAndContents[file] = head(readFile(file, 'utf8'), { count, option });
-      return fileAndContents;
+    const fileAndContents = files.map((file) => {
+      const content = head(readFile(file, 'utf8'), { count, option });
+      return { name: file, content };
     });
 
     return joinData(formatFileContent(fileAndContents), '\n\n');
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 

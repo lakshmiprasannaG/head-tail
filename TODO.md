@@ -1,19 +1,25 @@
 **TODO**
 
-- [ ] Modify the input data structure of formatFileContent- from objects to array of objects.
+- [ ] Modify the return structure of parseArgs.
+- [ ] Send output in two different streams
+  - [ ] Standard output stream.
+  - [ ] Standard error stream.
+- [ ] Give scalable logic in asssertValidInput.
 - [ ] Refactor parseArgs.
 - [ ] Refactor 'headMain' function in headLib.js.
-- [ ] Consider rich structure for 'head'.
 - [ ] Refactor head function in 'headLib.js'.
-- [ ] Write validations for options.
-  - [x] Count should be positive.
-  - [x] Either '-n' or '-c', only single option can be given.
-  - [ ] How to test validations?
 - [ ] After doing 'head', does last line has '\n' as last character?
 - [ ] Check the functionality of head once.
 
 **Done**
 
+- [x] Consider rich structure for 'head'.
+- [x] Write validations for options.
+  - [x] Count should be positive.
+  - [x] Either '-n' or '-c', only single option can be given.
+  - [x] Test validations.
+- [x] Extract each error into its own function in assertValidInput.
+- [x] Modify the input data structure of formatFileContent- from objects to array of objects.
 - [x] Modify the input data structure of formatFileContent- from arrays to objects.
 - [x] Give the responsibility of decision making to head, about which data to send back based on option.
 - [x] Test validateInput.
