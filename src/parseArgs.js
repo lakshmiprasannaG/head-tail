@@ -13,8 +13,13 @@ const parseArgs = function (args) {
     option = args[0];
     count = +args[1];
     files = args.slice(2);
-    if (option.length > 2) {
-      return resetArgs(args);
+    if (isNaN(count)) {
+      if (option.length > 2) {
+        return resetArgs(args);
+      }
+      option = '-n';
+      count = args[0].slice(1);
+      files = args.slice(1);
     }
   }
   return { files, count, option };

@@ -13,7 +13,9 @@
 
 **Done**
 
-- [x] Add a case in parseArgs, where count is concatinated with option.
+- [x] Add few cases in parseArgs where
+  - [x] count is concatinated with option.
+  - [x] option and count are passed as -count.
 - [x] Move validation from parseArgs to headLib.
 - [x] Format the output when multiple files are passed as input.
 - [x] Move 'headMain' tests to different file.

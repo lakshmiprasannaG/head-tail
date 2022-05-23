@@ -41,4 +41,13 @@ describe('parseArgs', () => {
   it('Should parse multiple files', () => {
     assert.deepStrictEqual(parseArgs(['./a.txt', './b.txt']), { files: ['./a.txt', './b.txt'], count: 10, option: '-n' });
   });
+
+  it('Should parse when count is being concatinated with option', () => {
+    assert.deepStrictEqual(parseArgs(['-n2', './a.txt']), {files: ['./a.txt'], count: '2', option: '-n'});
+    assert.deepStrictEqual(parseArgs(['-c2', './a.txt']), {files: ['./a.txt'], count: '2', option: '-c'});
+  });
+  
+  it('Should parse when option and count are passed as -count', () => {
+    assert.deepStrictEqual(parseArgs(['-2', './a.txt']), {files: ['./a.txt'], count: '2', option: '-n'});
+  });
 });
