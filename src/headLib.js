@@ -20,17 +20,30 @@ const formatFileContent = function (files, filesContent) {
   return formattedData;
 };
 
+const validateInput = function ({ files, count, option }, args) {
+  if (option !== '-n' && option !== '-c') {
+    throw `Invalid option -- ${option}`;
+  }
+  if (count < 1 || isNaN(count)) {
+    throw `Illegal count -- ${args[1]}`;
+  }
+  if (args.includes('-c') && args.includes('-n')) {
+    throw 'Cannot combine counts';
+  }
+  if (files.length === 0) {
+    throw 'No file found';
+  }
+};
+
 const headMain = function (readFile, args) {
   try {
     const { files, count, option } = parseArgs(args);
-    const requiredText = [];
+    validateInput({ files, count, option }, args);
     const delimiter = option === '-c' ? '' : '\n';
-    
-    for (let index = 0; index < files.length; index++) {
-      const content = readFile(files[index], 'utf8');
-      requiredText.push(head(content, { count, delimiter }));
-    }
-    return joinData(formatFileContent(files, requiredText), '\n\n');
+
+    const fileContents = files.map((file) => head(readFile(file, 'utf8'), { count, delimiter }));
+
+    return joinData(formatFileContent(files, fileContents), '\n\n');
   } catch (error) {
     return error;
   }

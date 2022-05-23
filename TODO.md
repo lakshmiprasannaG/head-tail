@@ -1,5 +1,6 @@
 **TODO**
 
+- [ ] Test validateInput.
 - [ ] Refactor 'headMain' function in headLib.js.
 - [ ] Consider rich structure for 'head'.
 - [ ] Refactor head function in 'headLib.js'.
@@ -12,6 +13,8 @@
 
 **Done**
 
+- [x] Add a case in parseArgs, where count is concatinated with option.
+- [x] Move validation from parseArgs to headLib.
 - [x] Format the output when multiple files are passed as input.
 - [x] Move 'headMain' tests to different file.
 - [x] Wire parseArgs to headLib.js
