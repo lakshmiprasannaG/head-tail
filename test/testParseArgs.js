@@ -50,4 +50,11 @@ describe('parseArgs', () => {
   it('Should parse when option and count are passed as -count', () => {
     assert.deepStrictEqual(parseArgs(['-2', './a.txt']), {files: ['./a.txt'], count: '2', option: '-n'});
   });
+
+  it('Should throw error when both "-c" and "-n" options are given', () => {
+    const error = {
+      message: 'Cannot combine counts'
+    };
+    assert.throws(() => parseArgs(['-n', '2', '-c', '2', 'a.txt']), error);
+  });
 });

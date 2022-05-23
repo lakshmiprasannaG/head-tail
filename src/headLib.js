@@ -20,28 +20,37 @@ const formatFileContent = function (files, filesContent) {
   return formattedData;
 };
 
-const validateInput = function ({ files, count, option }, args) {
+const validateInput = function ({ files, count, option }) {
   if (option !== '-n' && option !== '-c') {
-    throw `Invalid option -- ${option}`;
+    const errorMessage = {
+      message: `Invalid option -- ${option}`
+    };
+    throw errorMessage;
   }
   if (count < 1 || isNaN(count)) {
-    throw `Illegal count -- ${args[1]}`;
+    const errorMessage = {
+      message: `Illegal count -- ${count}`
+    };
+    throw errorMessage;
   }
-  if (args.includes('-c') && args.includes('-n')) {
-    throw 'Cannot combine counts';
-  }
+  
   if (files.length === 0) {
-    throw 'No file found';
+    const errorMessage = {
+      message: 'No file found'
+    };
+    throw errorMessage;
   }
 };
 
 const headMain = function (readFile, args) {
   try {
     const { files, count, option } = parseArgs(args);
-    validateInput({ files, count, option }, args);
+    validateInput({ files, count, option });
     const delimiter = option === '-c' ? '' : '\n';
 
-    const fileContents = files.map((file) => head(readFile(file, 'utf8'), { count, delimiter }));
+    const fileContents = files.map((file) => {
+      return head(readFile(file, 'utf8'), { count, delimiter });
+    });
 
     return joinData(formatFileContent(files, fileContents), '\n\n');
   } catch (error) {
@@ -51,3 +60,4 @@ const headMain = function (readFile, args) {
 
 exports.head = head;
 exports.headMain = headMain;
+exports.validateInput = validateInput;
