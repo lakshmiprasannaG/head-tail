@@ -13,6 +13,7 @@
 
 **Done**
 
+- [x] Give the responsibility of decision making to head, about which data to send back based on option.
 - [x] Test validateInput.
 - [x] Add few cases in parseArgs where
   - [x] count is concatinated with option.

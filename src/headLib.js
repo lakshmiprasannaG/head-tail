@@ -3,9 +3,22 @@ const { parseArgs } = require('./parseArgs');
 const splitData = (content, delimiter) => content.split(delimiter);
 const joinData = (lines, delimiter) => lines.join(delimiter);
 
-const head = (content, { count, delimiter }) => {
-  const lines = splitData(content, delimiter);
-  return joinData(lines.slice(0, count), delimiter);
+const firstNLines = (content, count) => {
+  const data = splitData(content, '\n');
+  return joinData(data.slice(0, count), '\n');
+};
+
+const firstNBytes = (content, count) => {
+  const data = splitData(content, '');
+  return joinData(data.slice(0, count), '');
+};
+
+const head = (content, { count, option }) => {
+  const optionFnPairs = {
+    '-c': firstNBytes(content, count),
+    '-n': firstNLines(content, count)
+  };
+  return optionFnPairs[option];
 };
 
 const formatFileContent = function (files, filesContent) {
@@ -46,10 +59,9 @@ const headMain = function (readFile, args) {
   try {
     const { files, count, option } = parseArgs(args);
     validateInput({ files, count, option });
-    const delimiter = option === '-c' ? '' : '\n';
 
     const fileContents = files.map((file) => {
-      return head(readFile(file, 'utf8'), { count, delimiter });
+      return head(readFile(file, 'utf8'), { count, option });
     });
 
     return joinData(formatFileContent(files, fileContents), '\n\n');
