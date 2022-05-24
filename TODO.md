@@ -1,7 +1,6 @@
 **TODO**
 
 - [ ] When multiple files are passed, if any file is not present, that should throw error, and other files should get executed normally.
-- [ ] Override options, when multiple options are passed.
 - [ ] Modify the return structure of parseArgs.
 - [ ] Send output in two different streams
   - [ ] Standard output stream.
@@ -9,6 +8,8 @@
 
 **Done**
 
+- [x] Override options, when same option is passed multiple times.
+- [X] Move parse time errors(option and count related errors) to parseArgs.
 - [x] Refactor parseArgs.
 - [x] Give scalable logic in asssertValidInput.
 - [x] Refactor 'headMain' function in headLib.js.

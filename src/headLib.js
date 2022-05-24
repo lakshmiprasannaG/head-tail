@@ -31,32 +31,13 @@ const formatFileContent = function (fileAndContents) {
   });
 };
 
-const invalidOptionError = (option) => {
-  return {
-    message: `Invalid option -- ${option}`,
-  };
-};
-
-const invalidCountError = (count) => {
-  return {
-    message: `Illegal count -- ${count}`
-  };
-};
-
 const invalidFileError = () => { 
   return {
     message: 'No file found'
   };
 };
 
-const assertValidInput = function ({ files, count, option }, validOptions) {
-  if (!validOptions.includes(option)) {
-    throw invalidOptionError(option);
-  }
-  if (count < 1 || isNaN(count)) {
-    throw invalidCountError(count);
-  }
-  
+const assertValidFiles = function ({ files}) {
   if (files.length === 0) {
     throw invalidFileError();
   }
@@ -65,8 +46,7 @@ const assertValidInput = function ({ files, count, option }, validOptions) {
 const headMain = function (readFile, args) {
   try {
     const { files, count, option } = parseArgs(args);
-    const optionsList = ['-n', '-c'];
-    assertValidInput({ files, count, option }, optionsList);
+    assertValidFiles({ files });
 
     const fileAndContents = files.map((file) => {
       const content = head(readFile(file, 'utf8'), { count, option });
@@ -81,4 +61,4 @@ const headMain = function (readFile, args) {
 
 exports.head = head;
 exports.headMain = headMain;
-exports.validateInput = assertValidInput;
+exports.assertValidFiles = assertValidFiles;

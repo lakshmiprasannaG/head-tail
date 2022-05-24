@@ -1,4 +1,5 @@
-const validateInput = require('./../src/headLib.js').validateInput;
+const assertValidFiles = require('./../src/headLib.js').assertValidFiles;
+const assertValidOptions = require('./../src/parseArgs.js').assertValidOptions;
 const assert = require('assert');
 
 describe('validateInput', () => {
@@ -6,20 +7,20 @@ describe('validateInput', () => {
     const error = {
       message: 'Invalid option -- -x'
     };
-    assert.throws(() => validateInput({ files: ['a.txt'], count: 2, option: '-x' }, ['-n', '-c']), error);
+    assert.throws(() => assertValidOptions({ count: 2, option: '-x' }, ['-n', '-c']), error);
   });
   
   it('Should throw error when invalid count is given', () => {
     const error = {
       message: 'Illegal count -- -2'
     };
-    assert.throws(() => validateInput({ files: ['a.txt'], count: -2, option: '-n' }, ['-n', '-c']), error);
+    assert.throws(() => assertValidOptions({ count: -2, option: '-n' }, ['-n', '-c']), error);
   });
   
   it('Should throw error when file is not given', () => {
     const error = {
       message: 'No file found'
     };
-    assert.throws(() => validateInput({ files: [], count: 2, option: '-n' }, ['-n', '-c']), error);
+    assert.throws(() => assertValidFiles({ files: [], count: 2, option: '-n' }, ['-n', '-c']), error);
   });
 });

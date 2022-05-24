@@ -49,12 +49,26 @@ describe('parseArgs', () => {
   
   it('Should parse when option and count are passed as -count', () => {
     assert.deepStrictEqual(parseArgs(['-2', './a.txt']), {files: ['./a.txt'], count: '2', option: '-n'});
+    assert.deepStrictEqual(parseArgs(['-22', './a.txt']), {files: ['./a.txt'], count: '22', option: '-n'});
   });
 
-  it('Should throw error when both "-c" and "-n" options are given', () => {
+  it('Should take last option when similar options are passed multiple times', () => {
+    assert.deepStrictEqual(parseArgs(['-n2', '-n1', 'a.txt']), {files: ['a.txt'], count: '1', option: '-n'});
+    
+    assert.deepStrictEqual(parseArgs(['-c2', '-c1', 'a.txt']), {files: ['a.txt'], count: '1', option: '-c'});
+  });
+
+  it('Should throw error when negative count is passed', () => {
+    const error = {
+      message: 'Illegal count -- -2'
+    };
+    assert.throws(() => parseArgs(['-n', '-2', 'a.txt']), error);
+  });
+  
+  it('Should throw error when "-c" and "-n", both options are passed', () => {
     const error = {
       message: 'Cannot combine counts'
     };
-    assert.throws(() => parseArgs(['-n', '2', '-c', '2', 'a.txt']), error);
+    assert.throws(() => parseArgs(['-n2', '-c2', 'a.txt']), error);
   });
 });
