@@ -20,4 +20,12 @@ describe('headMain', () => {
     const mockedReadFileSync = mockReadfileSync(['./a.txt', './b.txt'], 'hello');
     assert.strictEqual(headMain(mockedReadFileSync, ['-n', '1', './a.txt', './b.txt']), '==> ./a.txt <==\nhello\n\n==> ./b.txt <==\nhello');
   });
+  
+  it('Should throw usage when no arguments are passed', () => {
+    const mockedReadFileSync = mockReadfileSync(['./a.txt', './b.txt'], 'hello');
+    const error = {
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
+    assert.throws(() => headMain(mockedReadFileSync, []), error);
+  });
 });

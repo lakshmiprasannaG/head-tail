@@ -31,6 +31,12 @@ const formatFileContent = function (fileAndContents) {
   });
 };
 
+const noArguments = () => {
+  return {
+    message: 'usage: head [-n lines | -c bytes] [file ...]'
+  };
+};
+
 const invalidFileError = () => { 
   return {
     message: 'No file found'
@@ -44,19 +50,28 @@ const assertValidFiles = function ({ files}) {
 };
 
 const headMain = function (readFile, args) {
-  try {
-    const { files, options: {option, count} } = parseArgs(args);
-    assertValidFiles({ files });
+  
+  if (!args.length) {
+    throw noArguments();
+  }
 
-    const fileAndContents = files.map((file) => {
+  const { files, options: {option, count} } = parseArgs(args);
+  assertValidFiles({ files });
+
+  const fileAndContents = files.map(function (file) {
+    try {
       const content = head(readFile(file, 'utf8'), { count, option });
       return { name: file, content };
-    });
+    } catch (error) {
+      return {
+        name: file,
+        content: error.message,
+      };
+    }
+  });
 
-    return joinData(formatFileContent(fileAndContents), '\n\n');
-  } catch (error) {
-    return error.message;
-  }
+  return joinData(formatFileContent(fileAndContents), '\n\n');
+  
 };
 
 exports.head = head;
