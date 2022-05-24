@@ -1,18 +1,20 @@
 **TODO**
 
+- [ ] When multiple files are passed, if any file is not present, that should throw error, and other files should get executed normally.
+- [ ] Override options, when multiple options are passed.
 - [ ] Modify the return structure of parseArgs.
 - [ ] Send output in two different streams
   - [ ] Standard output stream.
   - [ ] Standard error stream.
-- [ ] Give scalable logic in asssertValidInput.
-- [ ] Refactor parseArgs.
-- [ ] Refactor 'headMain' function in headLib.js.
-- [ ] Refactor head function in 'headLib.js'.
-- [ ] After doing 'head', does last line has '\n' as last character?
-- [ ] Check the functionality of head once.
 
 **Done**
 
+- [x] Refactor parseArgs.
+- [x] Give scalable logic in asssertValidInput.
+- [x] Refactor 'headMain' function in headLib.js.
+- [x] Refactor head function in 'headLib.js'.
+- [ ] ~~After doing 'head', does last line has '\n' as last character?~~
+- [x] Check the functionality of head once.
 - [x] Consider rich structure for 'head'.
 - [x] Write validations for options.
   - [x] Count should be positive.

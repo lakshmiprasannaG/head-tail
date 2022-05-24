@@ -6,20 +6,20 @@ describe('validateInput', () => {
     const error = {
       message: 'Invalid option -- -x'
     };
-    assert.throws(() => validateInput({ files: ['a.txt'], count: 2, option: '-x' }), error);
+    assert.throws(() => validateInput({ files: ['a.txt'], count: 2, option: '-x' }, ['-n', '-c']), error);
   });
   
   it('Should throw error when invalid count is given', () => {
     const error = {
       message: 'Illegal count -- -2'
     };
-    assert.throws(() => validateInput({ files: ['a.txt'], count: -2, option: '-n' }), error);
+    assert.throws(() => validateInput({ files: ['a.txt'], count: -2, option: '-n' }, ['-n', '-c']), error);
   });
   
   it('Should throw error when file is not given', () => {
     const error = {
       message: 'No file found'
     };
-    assert.throws(() => validateInput({ files: [], count: 2, option: '-n' }), error);
+    assert.throws(() => validateInput({ files: [], count: 2, option: '-n' }, ['-n', '-c']), error);
   });
 });

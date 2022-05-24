@@ -1,33 +1,41 @@
 const resetArgs = (args) => {
-  const files = args.slice(1);
-  const option = args[0].slice(0, 2);
-  const count = args[0].slice(2);
-  return { files, count, option };
+  let option = '-n';
+  let count = args[0].slice(1);
+  let files = args.slice(1);
+
+  if (args[0].length > 2) {
+    files = args.slice(1);
+    option = args[0].slice(0, 2);
+    count = args[0].slice(2);
+  }
+  return {files, count, option};
 };
-  
+
+const invalidOptions = () => {
+  return {
+    message: 'Cannot combine counts'
+  };
+};
+
+const assertValidateOptions = (args) => {
+  if (args.includes('-n') && args.includes('-c')) {
+    throw invalidOptions();
+  }
+};
+
 const parseArgs = function (args) {
   let count = 10;
   let files = args.slice(0);
   let option = '-n';
 
-  if (args.includes('-n') && args.includes('-c')) {
-    const errorMessage = {
-      message: 'Cannot combine counts'
-    };
-    throw errorMessage;
-  }
+  assertValidateOptions(args);
 
   if (args[0].startsWith('-')) {
     option = args[0];
     count = +args[1];
     files = args.slice(2);
     if (isNaN(count)) {
-      if (option.length > 2) {
-        return resetArgs(args);
-      }
-      option = '-n';
-      count = args[0].slice(1);
-      files = args.slice(1);
+      return resetArgs(args, option);
     }
   }
   return { files, count, option };

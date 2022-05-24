@@ -49,8 +49,8 @@ const invalidFileError = () => {
   };
 };
 
-const assertValidInput = function ({ files, count, option }) {
-  if (option !== '-n' && option !== '-c') {
+const assertValidInput = function ({ files, count, option }, validOptions) {
+  if (!validOptions.includes(option)) {
     throw invalidOptionError(option);
   }
   if (count < 1 || isNaN(count)) {
@@ -65,7 +65,8 @@ const assertValidInput = function ({ files, count, option }) {
 const headMain = function (readFile, args) {
   try {
     const { files, count, option } = parseArgs(args);
-    assertValidInput({ files, count, option });
+    const optionsList = ['-n', '-c'];
+    assertValidInput({ files, count, option }, optionsList);
 
     const fileAndContents = files.map((file) => {
       const content = head(readFile(file, 'utf8'), { count, option });
