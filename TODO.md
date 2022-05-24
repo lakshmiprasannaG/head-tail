@@ -1,13 +1,14 @@
 **TODO**
 
 - [ ] When multiple files are passed, if any file is not present, that should throw error, and other files should get executed normally.
-- [ ] Modify the return structure of parseArgs.
+  - [ ] That may change the contract of many functions.
 - [ ] Send output in two different streams
   - [ ] Standard output stream.
   - [ ] Standard error stream.
 
 **Done**
 
+- [x] Modify the return structure of parseArgs.
 - [x] Override options, when same option is passed multiple times.
 - [X] Move parse time errors(option and count related errors) to parseArgs.
 - [x] Refactor parseArgs.

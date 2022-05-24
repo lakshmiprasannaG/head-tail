@@ -45,7 +45,7 @@ const assertValidFiles = function ({ files}) {
 
 const headMain = function (readFile, args) {
   try {
-    const { files, count, option } = parseArgs(args);
+    const { files, options: {option, count} } = parseArgs(args);
     assertValidFiles({ files });
 
     const fileAndContents = files.map((file) => {
