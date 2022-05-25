@@ -37,41 +37,41 @@ const noArguments = () => {
   };
 };
 
-const invalidFileError = () => { 
+const invalidFileError = () => {
   return {
     message: 'No file found'
   };
 };
 
-const assertValidFiles = function ({ files}) {
+const assertValidFiles = function ({ files }) {
   if (files.length === 0) {
     throw invalidFileError();
   }
 };
 
 const headMain = function (readFile, args) {
-  
   if (!args.length) {
     throw noArguments();
   }
 
-  const { files, options: {option, count} } = parseArgs(args);
+  const { files, options: { option, count } } = parseArgs(args);
   assertValidFiles({ files });
 
   const fileAndContents = files.map(function (file) {
     try {
       const content = head(readFile(file, 'utf8'), { count, option });
-      return { name: file, content };
+      return { name: file, content, status: 'pass' };
     } catch (error) {
       return {
         name: file,
         content: error.message,
+        status: 'fail'
       };
     }
   });
 
   return joinData(formatFileContent(fileAndContents), '\n\n');
-  
+
 };
 
 exports.head = head;
