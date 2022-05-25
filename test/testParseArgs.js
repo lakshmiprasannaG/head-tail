@@ -57,6 +57,7 @@ describe('parseArgs', () => {
 
   it('Should throw error when "-c" and "-n", both options are passed', () => {
     const error = {
+      // eslint-disable-next-line quotes
       message: "head: can't combine line and byte counts"
     };
     assert.throws(() => parseArgs(['-n2', '-c2', 'a.txt']), error);

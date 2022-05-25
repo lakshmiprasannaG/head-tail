@@ -14,16 +14,17 @@ const invalidCountError = (count) => {
 
 const invalidCombinationOfOptions = () => {
   return {
+    // eslint-disable-next-line quotes
     message: "head: can't combine line and byte counts"
   };
 };
 
 const assertValidOptions = ({ count, option }, validOptions) => {
-  if (!validOptions.includes(option)) {
-    throw invalidOptionError(option);
-  }
   if (count < 1) {
     throw invalidCountError(count);
+  }
+  if (!validOptions.includes(option)) {
+    throw invalidOptionError(option);
   }
 };
 
