@@ -1,20 +1,16 @@
-**TODO FOR TAIL**
-
-- [ ] Make tail to give last 10 lines.
-
-**DONE OF TAIL**
-
-- [x] Implement tail that gives single line.
-- [x] Implement tail that gives multiple lines.
-
-**TODO FOR HEAD**
+**TODO**
 
 - [ ] Send output in two different streams
   - [ ] Standard output stream.
   - [ ] Standard error stream.
 
-**Done OF HEAD**
+**Done**
 
+- [x] Take input from command line for tail.
+- [x] Make tail to give last n bytes(-c).
+- [x] Make tail to give last n lines (-n).
+- [x] Implement tail that gives single line.
+- [x] Implement tail that gives multiple lines.
 - [x] When multiple files are passed, if any file is not present, that should throw error, and other files should get executed normally.
 - [x] Modify the return structure of parseArgs.
 - [x] Override options, when same option is passed multiple times.

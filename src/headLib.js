@@ -77,3 +77,4 @@ const headMain = function (readFile, args) {
 exports.head = head;
 exports.headMain = headMain;
 exports.assertValidFiles = assertValidFiles;
+exports.formatFileContent = formatFileContent;
