@@ -1,3 +1,5 @@
+# HEAD
+
 ## head [-n count | -c bytes] file(s)
 
 ```head file
@@ -10,9 +12,12 @@ head -c bytes file
   Displays the first bytes of the specified file.
 ```
 
+# TAIL
+
 ## tail [-c # | -n #] file(s)
 
-```tail file
+```
+tail file
   Displays the last 10 lines of the specified file.
 
 tail -n count file
