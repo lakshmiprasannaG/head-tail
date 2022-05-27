@@ -2,7 +2,8 @@
 
 ## head [-n count | -c bytes] file(s)
 
-```head file
+```
+head file
   Displays the first 10 lines of the specified file.
 
 head -n count file
