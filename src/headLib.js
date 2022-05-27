@@ -87,3 +87,6 @@ exports.head = head;
 exports.headMain = headMain;
 exports.assertValidFiles = assertValidFiles;
 exports.formatFileContent = formatFileContent;
+exports.firstNLines = firstNLines;
+exports.firstNBytes = firstNBytes;
+exports.readFile = readFile;

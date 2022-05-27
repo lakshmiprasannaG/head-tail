@@ -14,11 +14,25 @@
 
 * **TODO**
 
+  - [ ] Add tests for functions: 
+    - [x] firstNLines
+    - [x] firstNBytes
+    - [ ] readFile
   - [ ] Send output in two different streams
     - [ ] Standard output stream.
     - [ ] Standard error stream.
 
+
+* **Consider**
+
+  - [ ] Problems with parseArgs
+    - [ ] It's complex
+    - [ ] Unable to test functions (segregateArgs, resetArgs) in parseArgs, breaking of functions may be in wrong place.
+    - [ ] Try modifying the idea.
+
+
 * **Done**
+  - [x] Remove duplicate tests.
   - [x] When multiple files are passed, if any file is not present, that should throw error, and other files should get executed normally.
   - [x] Modify the return structure of parseArgs.
   - [x] Override options, when same option is passed multiple times.
