@@ -1,5 +1,6 @@
 const { parseArgs } = require('./parseArgs');
 
+const getUsage = () => 'usage: head [-n lines | -c bytes] [file ...]';
 const splitData = (content, delimiter) => content.split(delimiter);
 const joinData = (lines, delimiter) => lines.join(delimiter);
 
@@ -21,19 +22,17 @@ const head = (content, { count, option }) => {
   return optionFnPairs[option];
 };
 
-const formatFileContent = function (fileAndContents) {
-  if (fileAndContents.length === 1) {
-    return [fileAndContents[0].content];
-  }
-  return fileAndContents.map((file) => {
-    const fileNameFormat = `==> ${file.name} <==`;
-    return `${fileNameFormat}\n${file.content}`;
+const getFileFormat = (file) => `==> ${file.name} <==`;
+
+const formatFileContent = function (contents) {
+  return contents.map((file) => {
+    return `${getFileFormat(file)}\n${file.content}`;
   });
 };
 
 const noArguments = () => {
   return {
-    message: 'usage: head [-n lines | -c bytes] [file ...]'
+    message: getUsage()
   };
 };
 
@@ -43,34 +42,44 @@ const invalidFileError = () => {
   };
 };
 
-const assertValidFiles = function ({ files }) {
-  if (files.length === 0) {
+const assertValidFiles = function (files) {
+  if (!files.length) {
     throw invalidFileError();
   }
 };
 
-const headMain = function (readFile, args) {
+const readFile = (readFileSync, file, encode) => {
+  try {
+    return {
+      content: readFileSync(file, encode)
+    };
+  } catch (error) {
+    return {
+      message: `head: ${file}: No such file or directory`
+    };
+  }
+};
+
+const headMain = function (readFileSync, args) {
   if (!args.length) {
     throw noArguments();
   }
 
-  const { files, options: { option, count } } = parseArgs(args);
-  assertValidFiles({ files });
+  const { files, options } = parseArgs(args);
+  assertValidFiles(files);
 
-  const fileAndContents = files.map(function (file) {
-    try {
-      const content = head(readFile(file, 'utf8'), { count, option });
-      return { name: file, content, status: 'pass' };
-    } catch (error) {
-      return {
-        name: file,
-        content: error.message,
-        status: 'fail'
-      };
+  const headedContents = files.map(file => {
+    const { content, message } = readFile(readFileSync, file, 'utf8');
+    if (content) {
+      const headContent = head(content, options);
+      return { name: file, content: headContent };
     }
+    return { name: file, message };
   });
 
-  return joinData(formatFileContent(fileAndContents), '\n\n');
+  const formattedContent = headedContents.length === 1 ?
+    [headedContents[0].content] : formatFileContent(headedContents);
+  return joinData(formattedContent, '\n\n');
 
 };
 

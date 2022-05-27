@@ -1,7 +1,7 @@
 const assert = require('assert');
 const { tail } = require('./../src/tailLib.js');
 
-describe.only('tail', () => {
+describe('tail', () => {
   it('Should display first line', () => {
     assert.strictEqual(tail('hello', { count: 10, option: '-n' }), 'hello');
     assert.strictEqual(tail('bye', { count: 10, option: '-n' }), 'bye');

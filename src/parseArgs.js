@@ -1,8 +1,8 @@
-const HEAD_USAGE = 'usage: head [-n lines | -c bytes] [file ...]';
+const getUsage = () => 'usage: head [-n lines | -c bytes] [file ...]';
 
 const invalidOptionError = (option) => {
   return {
-    message: `head: Invalid option -- ${option[1]}\n${HEAD_USAGE}`,
+    message: `head: Invalid option -- ${option[1]}\n${getUsage()}`,
   };
 };
 
@@ -50,16 +50,24 @@ const segregateArgs = (args) => {
   return { files, options: { option, count } };
 };
 
+const isFlag = (option) => option.startsWith('-');
+
+const setDefaults = function () {
+  return {
+    option: '-n',
+    count: 10
+  };
+};
+
 const parseArgs = function (args) {
   const optionsList = [];
-  const count = 10;
   const files = args.slice(0);
-  const option = '-n';
-  let parsedArgs = { files, options: { option, count } };
+  const options = setDefaults();
+  let parsedArgs = { files, options };
 
   const validOptions = ['-n', '-c'];
 
-  while (parsedArgs.files[0].startsWith('-')) {
+  while (isFlag(parsedArgs.files[0])) {
     parsedArgs = segregateArgs(parsedArgs.files);
     optionsList.push(parsedArgs.options.option);
     assertValidOptions(parsedArgs.options, validOptions);

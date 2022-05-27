@@ -2,12 +2,12 @@ const assertValidFiles = require('./../src/headLib.js').assertValidFiles;
 const assertValidOptions = require('./../src/parseArgs.js').assertValidOptions;
 const assert = require('assert');
 
-const HEAD_USAGE = 'usage: head [-n lines | -c bytes] [file ...]';
+const getUsage = () => 'usage: head [-n lines | -c bytes] [file ...]';
 
 describe('assertValidOptions', () => {
   it('Should throw error when invalid option is given', () => {
     const error = {
-      message: `head: Invalid option -- x\n${HEAD_USAGE}`
+      message: `head: Invalid option -- x\n${getUsage()}`
     };
     assert.throws(() => assertValidOptions({ count: 2, option: '-x' }, ['-n', '-c']), error);
   });
@@ -25,7 +25,7 @@ describe('assertValidFiles', () => {
     const error = {
       message: 'No file found'
     };
-    assert.throws(() => assertValidFiles({ files: [], count: 2, option: '-n' }, ['-n', '-c']), error);
+    assert.throws(() => assertValidFiles([]), error);
   });
 });
 
