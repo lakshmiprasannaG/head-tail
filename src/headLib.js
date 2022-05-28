@@ -1,32 +1,89 @@
 const { parseArgs } = require('./parseArgs');
 
 const getUsage = () => 'usage: head [-n lines | -c bytes] [file ...]';
-const splitData = (content, delimiter) => content.split(delimiter);
+const splitContent = (content, delimiter) => content.split(delimiter);
 const joinData = (lines, delimiter) => lines.join(delimiter);
 
 const firstNLines = (content, count) => {
-  const data = splitData(content, '\n');
-  return joinData(data.slice(0, count), '\n');
+  const lines = splitContent(content, '\n');
+  return joinData(lines.slice(0, count), '\n');
 };
 
 const firstNBytes = (content, count) => {
-  const data = splitData(content, '');
-  return joinData(data.slice(0, count), '');
+  const bytes = splitContent(content, '');
+  return joinData(bytes.slice(0, count), '');
+};
+
+const operator = (option) => {
+  return {
+    '-c': firstNBytes,
+    '-n': firstNLines
+  }[option];
 };
 
 const head = (content, { count, option }) => {
-  const optionFnPairs = {
-    '-c': firstNBytes(content, count),
-    '-n': firstNLines(content, count)
-  };
-  return optionFnPairs[option];
+  const headOperator = operator(option);
+  return headOperator(content, count);
 };
 
-const getFileFormat = (file) => `==> ${file.name} <==`;
+// const noFilePresent = function (file) {
+//   return {
+//     file,
+//     message: `head: ${file}: No such file or directory`
+//   };
+// };
 
-const formatFileContent = function (contents) {
+// const directory = function (file) {
+//   return {
+//     file,
+//     message: `head: Error reading ${file}`
+//   };
+// };
+
+// const noPermission = function (file) {
+//   return {
+//     file,
+//     message: `head: ${file}: Permission denied`
+//   };
+// };
+
+// const readingError = function (file, errorName) {
+//   const errorLog = {
+//     noFile: `head: ${file}: No such file or directory`,
+//     directory: `head: Error reading ${file}`,
+//     noPermission: `head: ${file}: Permission denied`
+//   };
+//   return errorLog[errorName];
+// };
+
+// const createError = (errCode, file) => {
+//   const errorCodes = {
+//     ENOENT: noFilePresent(file),
+//     EISDIR: directory(file),
+//     EACCES: noPermission(file)
+//   };
+//   return errorCodes(errCode, file);
+// };
+
+const createErrorMessage = (errCode, file) => {
+  const errorCodes = {
+    ENOENT: `head: ${file}: No such file or directory`,
+    EISDIR: `head: Error reading ${file}`,
+    EACCES: `head: ${file}: Permission denied`
+  };
+  return errorCodes[errCode];
+};
+
+const multipleFileHeader = (file) => `==> ${file} <==\n`;
+const singleFileHeader = () => '';
+
+const formatFileContent = function (contents, fileHeader) {
   return contents.map((file) => {
-    return `${getFileFormat(file)}\n${file.content}`;
+    if (file.error) {
+      return createErrorMessage(file.error, file.fileName);
+    }
+    const header = fileHeader(file.fileName);
+    return `${header}${file.content}`;
   });
 };
 
@@ -43,44 +100,45 @@ const invalidFileError = () => {
 };
 
 const assertValidFiles = function (files) {
-  if (!files.length) {
+  if (files.length === 0) {
     throw invalidFileError();
   }
 };
 
-const readFile = (readFileSync, file, encode) => {
+const readFile = (readFileSync, file, encoding) => {
   try {
     return {
-      content: readFileSync(file, encode)
+      content: readFileSync(file, encoding)
     };
   } catch (error) {
     return {
-      message: `head: ${file}: No such file or directory`
+      error: createErrorMessage(error.code, file)
     };
   }
 };
 
 const headMain = function (readFileSync, args) {
-  if (!args.length) {
+  if (args.length === 0) {
     throw noArguments();
   }
 
   const { files, options } = parseArgs(args);
   assertValidFiles(files);
 
-  const headedContents = files.map(file => {
-    const { content, message } = readFile(readFileSync, file, 'utf8');
+  const fileHeader = files.length > 1 ? multipleFileHeader : singleFileHeader;
+
+  const headOfFiles = files.map(file => {
+    const { content, error } = readFile(readFileSync, file, 'utf8');
     if (content) {
       const headContent = head(content, options);
-      return { name: file, content: headContent };
+      return { fileName: file, content: headContent };
     }
-    return { name: file, message };
+    return { fileName: file, error };
   });
+  console.log(headOfFiles.error);
 
-  const formattedContent = headedContents.length === 1 ?
-    [headedContents[0].content] : formatFileContent(headedContents);
-  return joinData(formattedContent, '\n\n');
-
+  const contentWithHeader = formatFileContent(headOfFiles, fileHeader);
+  return joinData(contentWithHeader, '\n\n');
 };
 
 exports.head = head;
@@ -90,3 +148,4 @@ exports.formatFileContent = formatFileContent;
 exports.firstNLines = firstNLines;
 exports.firstNBytes = firstNBytes;
 exports.readFile = readFile;
+exports.createErrorMessage = createErrorMessage;

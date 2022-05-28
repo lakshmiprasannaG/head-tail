@@ -13,7 +13,6 @@
 # HEAD
 
 * **TODO**
-
   - [ ] Add tests for functions: 
     - [x] firstNLines
     - [x] firstNBytes
@@ -24,7 +23,6 @@
 
 
 * **Consider**
-
   - [ ] Problems with parseArgs
     - [ ] It's complex
     - [ ] Unable to test functions (segregateArgs, resetArgs) in parseArgs, breaking of functions may be in wrong place.
@@ -32,6 +30,7 @@
 
 
 * **Done**
+  - [x] Implement all the errors of readFile.
   - [x] Remove duplicate tests.
   - [x] When multiple files are passed, if any file is not present, that should throw error, and other files should get executed normally.
   - [x] Modify the return structure of parseArgs.

@@ -1,6 +1,5 @@
 const assert = require('assert');
-const { head, firstNLines, firstNBytes, readFile } = require('../src/headLib.js');
-
+const { head, firstNLines, firstNBytes, readFile, createErrorMessage } = require('../src/headLib.js');
 const { mockReadFileSync } = require('./testHeadMain.js');
 
 describe('head', () => {
@@ -61,13 +60,24 @@ describe('readFile', () => {
     const expected = { content: 'hello' };
     assert.deepStrictEqual(actual, expected);
   });
+});
 
-  it('Should throw error when unknown file is passed', () => {
-    const mockedReadFileSync = mockReadFileSync(['./a.txt'], ['hello']);
-    const actual = readFile(mockedReadFileSync, './b.txt', 'utf8');
-    const expected = {
-      message: 'head: ./b.txt: No such file or directory'
-    };
-    assert.deepStrictEqual(actual, expected);
+describe('createErrorMessage', () => {
+  it('Should give no file or directory error, when ENOENT errorCode is passsed', () => {
+    const expected = 'head: a.txt: No such file or directory';
+    const actual = createErrorMessage('ENOENT', 'a.txt');
+    assert.strictEqual(actual, expected);
+  });
+
+  it('Should give error reading file error, when EISDIR errorCode is passed', () => {
+    const actual = createErrorMessage('EISDIR', 'dir');
+    const expected = 'head: Error reading dir';
+    assert.strictEqual(actual, expected);
+  });
+
+  it('Should give permission denied error, when EACCES errorCode is passed', () => {
+    const actual = createErrorMessage('EACCES', 'a.txt');
+    const expected = 'head: a.txt: Permission denied';
+    assert.strictEqual(actual, expected);
   });
 });
